@@ -1,5 +1,5 @@
 import MacroTesting
-import OnceMacro
+import OnceMacroPlugin
 import Testing
 
 @Suite(
