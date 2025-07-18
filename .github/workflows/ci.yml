@@ -31,7 +31,7 @@ jobs:
             os: macos-15
           - swift: "6.1"
             os: macos-15
-            flags: "--enable-experimental-prebuilts"
+            # flags: "--enable-experimental-prebuilts"
     steps:
       - uses: actions/checkout@v4
       - uses: mxcl/xcodebuild@v3
@@ -49,9 +49,9 @@ jobs:
         swift:
           - "6.0"
           - "6.1"
-        include:
-          - swift: "6.1"
-            flags: "--enable-experimental-prebuilts"
+        # include:
+        #   - swift: "6.1"
+        #     flags: "--enable-experimental-prebuilts"
     container:
       image: swift:${{ matrix.swift }}
     steps:
