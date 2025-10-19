@@ -6,7 +6,7 @@ import Testing
 	.macros(
 		["once": OnceMacro.self],
 		indentationWidth: .tab,
-		record: .never,
+		record: .never
 	)
 )
 struct OnceMacroTests {}
