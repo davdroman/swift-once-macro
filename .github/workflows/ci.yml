@@ -55,9 +55,4 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Run Tests
-        uses: mxcl/xcodebuild@v3
-        with:
-          swift: ~${{ matrix.swift }}
-          platform: ${{ matrix.platform }}
-          action: test
-          verbosity: xcbeautify
+        run: swift test
