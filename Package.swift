@@ -6,11 +6,11 @@ import CompilerPluginSupport
 let package = Package(
 	name: "swift-once-macro",
 	platforms: [
-		.macOS(.v10_15),
 		.iOS(.v13),
+		.macOS(.v10_15),
 		.tvOS(.v13),
-		.watchOS(.v6),
 		.visionOS(.v1),
+		.watchOS(.v6),
 	],
 	products: [
 		.library(name: "Once", targets: ["Once"]),
@@ -44,7 +44,6 @@ package.dependencies += [
 for target in package.targets {
 	target.swiftSettings = target.swiftSettings ?? []
 	target.swiftSettings? += [
-		.swiftLanguageMode(.v6),
 		.enableUpcomingFeature("ExistentialAny"),
 		.enableUpcomingFeature("InternalImportsByDefault"),
 	]
