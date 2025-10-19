@@ -4,9 +4,9 @@ import Testing
 
 @Suite(
 	.macros(
+		["once": OnceMacro.self],
 		indentationWidth: .tab,
 		record: .never,
-		macros: ["once": OnceMacro.self]
 	)
 )
 struct OnceMacroTests {}
