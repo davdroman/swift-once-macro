@@ -1,12 +1,14 @@
+#if canImport(OnceMacro)
 import MacroTesting
-import OnceMacroPlugin
 import Testing
+
+@testable import OnceMacro
 
 @Suite(
 	.macros(
 		["once": OnceMacro.self],
 		indentationWidth: .tab,
-		record: .never
+		record: .missing
 	)
 )
 struct OnceMacroTests {}
@@ -357,3 +359,4 @@ extension OnceMacroTests {
 		}
 	}
 }
+#endif

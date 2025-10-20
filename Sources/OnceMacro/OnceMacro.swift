@@ -1,8 +1,8 @@
-public import SwiftSyntax
-public import SwiftSyntaxMacros
+import SwiftSyntax
+import SwiftSyntaxMacros
 
-public struct OnceMacro: ExpressionMacro {
-	public static func expansion(
+struct OnceMacro: ExpressionMacro {
+	static func expansion(
 		of node: some FreestandingMacroExpansionSyntax,
 		in context: some MacroExpansionContext
 	) throws -> ExprSyntax {

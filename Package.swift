@@ -16,9 +16,16 @@ let package = Package(
 		.library(name: "Once", targets: ["Once"]),
 	],
 	targets: [
-		.target(name: "Once", dependencies: ["OnceMacroPlugin"]),
+		.target(name: "Once", dependencies: ["OnceMacro"]),
+		.testTarget(
+			name: "OnceTests",
+			dependencies: [
+				"Once",
+			]
+		),
+
 		.macro(
-			name: "OnceMacroPlugin",
+			name: "OnceMacro",
 			dependencies: [
 				.product(name: "SwiftCompilerPlugin", package: "swift-syntax"),
 				.product(name: "SwiftSyntaxMacros", package: "swift-syntax"),
@@ -27,10 +34,8 @@ let package = Package(
 		.testTarget(
 			name: "OnceMacroTests",
 			dependencies: [
-				"Once",
-				"OnceMacroPlugin",
+				"OnceMacro",
 				.product(name: "MacroTesting", package: "swift-macro-testing"),
-				.product(name: "SwiftCompilerPlugin", package: "swift-syntax"),
 			]
 		),
 	]
