@@ -81,7 +81,7 @@ jobs:
 
       - name: Run Tests
         run: |
-          if [[ "${{ matrix.swift }}" == "6.0" ]]; then
+          if [ "${{ matrix.swift }}" = "6.0" ]; then
             swift test
           else
             swift test --disable-experimental-prebuilts
