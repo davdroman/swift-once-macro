@@ -73,17 +73,11 @@ jobs:
           - "6.0"
           - "6.1"
           - "6.2"
+    container:
+      image: swift:${{ matrix.swift }}
     steps:
       - name: Git Checkout
         uses: actions/checkout@v5
-
-      - name: Install Swift
-        uses: swift-actions/setup-swift@next
-        with:
-          swift-version: ${{ matrix.swift }}
-
-      - name: Get Swift version
-        run: swift --version
 
       - name: Disable SwiftSyntax Prebuilts
         run: |
