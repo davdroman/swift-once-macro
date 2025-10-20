@@ -78,15 +78,12 @@ jobs:
         uses: actions/checkout@v5
 
       - name: Install Swift
-        uses: vapor/swiftly-action@v0.2
+        uses: swift-actions/setup-swift@next
         with:
-          toolchain: ${{ matrix.swift }}
+          swift-version: ${{ matrix.swift }}
 
-      - name: Install xcbeautify
-        run: |
-          eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-          brew install xcbeautify
-          which xcbeautify
+      - name: Get Swift version
+        run: swift --version
 
       - name: Disable SwiftSyntax Prebuilts
         run: |
@@ -94,6 +91,4 @@ jobs:
           touch ~/.swiftpm/cache/prebuilts/noprebuilts
 
       - name: Run Tests
-        run: |
-          which xcbeautify
-          swift test | xcbeautify --renderer github-actions
+        run: swift test
