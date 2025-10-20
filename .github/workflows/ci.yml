@@ -79,10 +79,9 @@ jobs:
       - name: Git Checkout
         uses: actions/checkout@v5
 
-      - name: Install xcbeautify
-        run: |
-          eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-          brew install xcbeautify
+      - uses: pkgxdev/setup@v4
+        with:
+          +: xcbeautify
 
       - name: Disable SwiftSyntax Prebuilts
         run: |
