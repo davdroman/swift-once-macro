@@ -79,10 +79,15 @@ jobs:
       - name: Git Checkout
         uses: actions/checkout@v5
 
+      - name: Install xcbeautify
+        run: |
+          eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+          brew install xcbeautify
+
       - name: Disable SwiftSyntax Prebuilts
         run: |
           mkdir -p ~/.swiftpm/cache/prebuilts
           touch ~/.swiftpm/cache/prebuilts/noprebuilts
 
       - name: Run Tests
-        run: swift test
+        run: swift test | xcbeautify --renderer github-actions
