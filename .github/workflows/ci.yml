@@ -77,18 +77,10 @@ jobs:
       - name: Git Checkout
         uses: actions/checkout@v5
 
-      - name: Install Swiftly
-        run: |
-          curl -O https://download.swift.org/swiftly/linux/swiftly-$(uname -m).tar.gz && \
-          tar zxf swiftly-$(uname -m).tar.gz && \
-          ./swiftly init --quiet-shell-followup --skip-install && \
-          . "${SWIFTLY_HOME_DIR:-$HOME/.local/share/swiftly}/env.sh" && \
-          hash -r
-
       - name: Install Swift
-        run: |
-          apt-get -y install libcurl4-openssl-dev
-          $HOME/.local/share/swiftly/bin/swiftly install --use ${{ matrix.swift }}
+        uses: vapor/swiftly-action@v0.2
+        with:
+          toolchain: ${{ matrix.swift }}
 
       - name: Install xcbeautify
         run: |
