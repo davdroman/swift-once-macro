@@ -79,7 +79,8 @@ jobs:
       - name: Git Checkout
         uses: actions/checkout@v5
 
-      - uses: pkgxdev/setup@v4
+      - name: Install xcbeautify
+        uses: pkgxdev/setup@v4
         with:
           +: xcbeautify
 
