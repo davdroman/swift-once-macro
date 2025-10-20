@@ -83,9 +83,10 @@ jobs:
           toolchain: ${{ matrix.swift }}
 
       - name: Install xcbeautify
-        uses: pkgxdev/setup@v4
-        with:
-          +: xcbeautify
+        run: |
+          eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+          brew install xcbeautify
+          which xcbeautify
 
       - name: Disable SwiftSyntax Prebuilts
         run: |
