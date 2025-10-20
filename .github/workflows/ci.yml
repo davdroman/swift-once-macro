@@ -22,20 +22,33 @@ jobs:
       fail-fast: false
       matrix:
         platform:
+          - iOS
           - macOS
+          - tvOS
+          - watchOS
+          - visionOS
         swift:
           - "6.0"
           - "6.1"
           - "6.2"
     steps:
       - name: Git Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
+
+      - name: Disable SwiftSyntax Prebuilts
+        run: |
+          defaults write com.apple.dt.Xcode IDEPackageEnablePrebuilts -bool NO
+
+          # nuke cache to ensure it takes effect
+          rm -rf ~/Library/Developer/Xcode/DerivedData
+          rm -rf ~/Library/Developer/Xcode/SourcePackages
+          rm -rf ~/Library/Caches/org.swift.swiftpm
 
       - name: Run Tests
         uses: mxcl/xcodebuild@v3
         with:
-          swift: ~${{ matrix.swift }}
           platform: ${{ matrix.platform }}
+          swift: ~${{ matrix.swift }}
           action: test
           verbosity: xcbeautify
   linux:
@@ -52,7 +65,7 @@ jobs:
       image: swift:${{ matrix.swift }}
     steps:
       - name: Git Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Run Tests
         run: swift test
