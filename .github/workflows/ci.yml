@@ -77,11 +77,6 @@ jobs:
       - name: Git Checkout
         uses: actions/checkout@v5
 
-      - name: Install xcbeautify
-        run: |
-          eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-          brew install xcbeautify
-
       - name: Install Swiftly
         run: |
           curl -O https://download.swift.org/swiftly/linux/swiftly-$(uname -m).tar.gz && \
@@ -94,6 +89,11 @@ jobs:
         run: |
           apt-get -y install libcurl4-openssl-dev
           $HOME/.local/share/swiftly/bin/swiftly install --use ${{ matrix.swift }}
+
+      - name: Install xcbeautify
+        run: |
+          eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+          brew install xcbeautify
 
       - name: Disable SwiftSyntax Prebuilts
         run: |
