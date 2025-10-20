@@ -23,6 +23,7 @@ jobs:
       matrix:
         platform:
           - iOS
+          - mac-catalyst
           - macOS
           - tvOS
           - watchOS
@@ -43,6 +44,17 @@ jobs:
           rm -rf ~/Library/Developer/Xcode/DerivedData
           rm -rf ~/Library/Developer/Xcode/SourcePackages
           rm -rf ~/Library/Caches/org.swift.swiftpm
+
+      - name: Select Xcode version
+        uses: mxcl/xcodebuild@v3
+        with:
+          swift: ~${{ matrix.swift }}
+          action: none
+          verbosity: xcbeautify
+
+      - if: ${{ matrix.platform != 'macOS' && matrix.platform != 'mac-catalyst' }}
+        name: Download Default Runtime
+        run: xcodebuild -downloadPlatform ${{ matrix.platform }}
 
       - name: Run Tests
         uses: mxcl/xcodebuild@v3
