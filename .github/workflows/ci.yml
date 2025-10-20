@@ -79,10 +79,10 @@ jobs:
       - name: Git Checkout
         uses: actions/checkout@v5
 
-      - name: Run Tests
+      - name: Disable SwiftSyntax Prebuilts
         run: |
-          if [ "${{ matrix.swift }}" = "6.0" ]; then
-            swift test
-          else
-            swift test --disable-experimental-prebuilts
-          fi
+          mkdir -p ~/.swiftpm/cache/prebuilts
+          touch ~/.swiftpm/cache/prebuilts/noprebuilts
+
+      - name: Run Tests
+        run: swift test
