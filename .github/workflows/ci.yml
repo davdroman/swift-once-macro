@@ -91,7 +91,9 @@ jobs:
           hash -r
 
       - name: Install Swift
-        run: $HOME/.local/share/swiftly/bin/swiftly install --use ${{ matrix.swift }}
+        run: |
+          apt-get -y install libcurl4-openssl-dev
+          $HOME/.local/share/swiftly/bin/swiftly install --use ${{ matrix.swift }}
 
       - name: Disable SwiftSyntax Prebuilts
         run: |
