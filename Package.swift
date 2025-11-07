@@ -36,6 +36,9 @@ let package = Package(
 			dependencies: [
 				"OnceMacro",
 				.product(name: "MacroTesting", package: "swift-macro-testing"),
+				// For some reason, we need to depend on SwiftCompilerPlugin here to work around error:
+				// OnceMacroTests - Compilation search paths unable to resolve module dependency: 'SwiftCompilerPlugin'
+				.product(name: "SwiftCompilerPlugin", package: "swift-syntax"),
 			]
 		),
 	]
