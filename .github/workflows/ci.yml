@@ -15,54 +15,54 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  # macOS:
-  #   name: ${{ matrix.platform }} (Swift ${{ matrix.swift }})
-  #   runs-on: macos-15
-  #   strategy:
-  #     fail-fast: false
-  #     matrix:
-  #       platform:
-  #         - iOS
-  #         - mac-catalyst
-  #         - macOS
-  #         - tvOS
-  #         - watchOS
-  #         - visionOS
-  #       swift:
-  #         - "6.0"
-  #         - "6.1"
-  #         - "6.2"
-  #   steps:
-  #     - name: Git Checkout
-  #       uses: actions/checkout@v5
+  macOS:
+    name: ${{ matrix.platform }} (Swift ${{ matrix.swift }})
+    runs-on: macos-15
+    strategy:
+      fail-fast: false
+      matrix:
+        platform:
+          - iOS
+          - mac-catalyst
+          - macOS
+          - tvOS
+          - watchOS
+          - visionOS
+        swift:
+          - "6.0"
+          - "6.1"
+          - "6.2"
+    steps:
+      - name: Git Checkout
+        uses: actions/checkout@v5
 
-  #     - name: Disable SwiftSyntax Prebuilts
-  #       run: |
-  #         defaults write com.apple.dt.Xcode IDEPackageEnablePrebuilts -bool NO
+      # - name: Disable SwiftSyntax Prebuilts
+      #   run: |
+      #     defaults write com.apple.dt.Xcode IDEPackageEnablePrebuilts -bool NO
 
-  #         # nuke cache to ensure it takes effect
-  #         rm -rf ~/Library/Developer/Xcode/DerivedData
-  #         rm -rf ~/Library/Developer/Xcode/SourcePackages
-  #         rm -rf ~/Library/Caches/org.swift.swiftpm
+      #     # nuke cache to ensure it takes effect
+      #     rm -rf ~/Library/Developer/Xcode/DerivedData
+      #     rm -rf ~/Library/Developer/Xcode/SourcePackages
+      #     rm -rf ~/Library/Caches/org.swift.swiftpm
 
-  #     - name: Select Xcode version
-  #       uses: mxcl/xcodebuild@v3
-  #       with:
-  #         swift: ~${{ matrix.swift }}
-  #         action: none
-  #         verbosity: xcbeautify
+      - name: Select Xcode version
+        uses: mxcl/xcodebuild@v3
+        with:
+          swift: ~${{ matrix.swift }}
+          action: none
+          verbosity: xcbeautify
 
-  #     - if: ${{ matrix.platform != 'macOS' && matrix.platform != 'mac-catalyst' }}
-  #       name: Download Default Runtime
-  #       run: xcodebuild -downloadPlatform ${{ matrix.platform }}
+      - if: ${{ matrix.platform != 'macOS' && matrix.platform != 'mac-catalyst' }}
+        name: Download Default Runtime
+        run: xcodebuild -downloadPlatform ${{ matrix.platform }}
 
-  #     - name: Run Tests
-  #       uses: mxcl/xcodebuild@v3
-  #       with:
-  #         platform: ${{ matrix.platform }}
-  #         swift: ~${{ matrix.swift }}
-  #         action: test
-  #         verbosity: xcbeautify
+      - name: Run Tests
+        uses: mxcl/xcodebuild@v3
+        with:
+          platform: ${{ matrix.platform }}
+          swift: ~${{ matrix.swift }}
+          action: test
+          verbosity: xcbeautify
   linux:
     name: Linux (Swift ${{ matrix.swift }})
     runs-on: ubuntu-latest
@@ -79,10 +79,10 @@ jobs:
       - name: Git Checkout
         uses: actions/checkout@v5
 
-      - name: Disable SwiftSyntax Prebuilts
-        run: |
-          mkdir -p ~/.swiftpm/cache/prebuilts
-          touch ~/.swiftpm/cache/prebuilts/noprebuilts
+      # - name: Disable SwiftSyntax Prebuilts
+      #   run: |
+      #     mkdir -p ~/.swiftpm/cache/prebuilts
+      #     touch ~/.swiftpm/cache/prebuilts/noprebuilts
 
       - name: Run Tests
         run: swift test
