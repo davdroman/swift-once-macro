@@ -36,15 +36,6 @@ jobs:
       - name: Git Checkout
         uses: actions/checkout@v5
 
-      # - name: Disable SwiftSyntax Prebuilts
-      #   run: |
-      #     defaults write com.apple.dt.Xcode IDEPackageEnablePrebuilts -bool NO
-
-      #     # nuke cache to ensure it takes effect
-      #     rm -rf ~/Library/Developer/Xcode/DerivedData
-      #     rm -rf ~/Library/Developer/Xcode/SourcePackages
-      #     rm -rf ~/Library/Caches/org.swift.swiftpm
-
       - name: Select Xcode version
         uses: mxcl/xcodebuild@v3
         with:
@@ -78,11 +69,6 @@ jobs:
     steps:
       - name: Git Checkout
         uses: actions/checkout@v5
-
-      # - name: Disable SwiftSyntax Prebuilts
-      #   run: |
-      #     mkdir -p ~/.swiftpm/cache/prebuilts
-      #     touch ~/.swiftpm/cache/prebuilts/noprebuilts
 
       - name: Run Tests
         run: swift test
