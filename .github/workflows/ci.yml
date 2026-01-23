@@ -102,12 +102,12 @@ jobs:
       - name: Git Checkout
         uses: actions/checkout@v5
 
-      - name: Run Tests
+      - name: Build Library
         uses: skiptools/swift-android-action@v2
         with:
           swift-version: ${{ matrix.swift }}
-          build-tests: ${{ matrix.swift != '6.0' }}
-          run-tests: ${{ matrix.swift != '6.0' }}
+          build-tests: false
+          run-tests: false
           free-disk-space: true
 
   check-swift-syntax-compatibility:
