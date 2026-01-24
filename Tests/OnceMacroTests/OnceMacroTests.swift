@@ -1,7 +1,6 @@
 #if canImport(OnceMacro)
 import MacroTesting
 import Testing
-
 @testable import OnceMacro
 
 @Suite(
