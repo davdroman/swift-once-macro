@@ -16,29 +16,64 @@ concurrency:
 
 jobs:
   macOS:
+    if: github.event_name != 'pull_request' || !contains(github.event.pull_request.title, '[skip ci]')
     name: ${{ matrix.platform }} (Swift ${{ matrix.swift }})
     runs-on: macos-15
     strategy:
       fail-fast: false
       matrix:
         platform:
+          - iOS
+          - mac-catalyst
           - macOS
+          - tvOS
+          - watchOS
+          - visionOS
         swift:
           - "6.0"
           - "6.1"
           - "6.2"
     steps:
       - name: Git Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
+
+      - name: Select Xcode version
+        uses: mxcl/xcodebuild@v3
+        with:
+          swift: ~${{ matrix.swift }}
+          action: none
+          verbosity: xcbeautify
+
+      - name: Disable SwiftSyntax Prebuilts
+        run: |
+          defaults write com.apple.dt.Xcode IDEPackageEnablePrebuilts -bool NO
+
+          # nuke cache to ensure it takes effect
+          rm -rf ~/Library/Developer/Xcode/DerivedData
+          rm -rf ~/Library/Developer/Xcode/SourcePackages
+          rm -rf ~/Library/Caches/org.swift.swiftpm
+
+      - if: ${{ matrix.platform != 'macOS' && matrix.platform != 'mac-catalyst' }}
+        name: Initialize Simulator Service
+        run: xcrun simctl list
+
+      - if: ${{ matrix.platform != 'macOS' && matrix.platform != 'mac-catalyst' }}
+        name: Download Default Runtime
+        uses: nick-fields/retry@v3
+        with:
+          timeout_minutes: 15
+          max_attempts: 3
+          command: xcodebuild -downloadPlatform ${{ matrix.platform }}
 
       - name: Run Tests
         uses: mxcl/xcodebuild@v3
         with:
-          swift: ~${{ matrix.swift }}
           platform: ${{ matrix.platform }}
+          swift: ~${{ matrix.swift }}
           action: test
           verbosity: xcbeautify
   linux:
+    if: github.event_name != 'pull_request' || !contains(github.event.pull_request.title, '[skip ci]')
     name: Linux (Swift ${{ matrix.swift }})
     runs-on: ubuntu-latest
     strategy:
@@ -52,7 +87,43 @@ jobs:
       image: swift:${{ matrix.swift }}
     steps:
       - name: Git Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Run Tests
         run: swift test
+
+  android:
+    name: Android (Swift ${{ matrix.swift }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        swift:
+          - "6.0"
+          - "6.1"
+          - "6.2"
+    steps:
+      - name: Git Checkout
+        uses: actions/checkout@v5
+
+      - name: Build Library
+        uses: skiptools/swift-android-action@v2
+        with:
+          swift-version: ${{ matrix.swift }}
+          build-tests: false
+          run-tests: false
+          free-disk-space: true
+
+  check-swift-syntax-compatibility:
+    name: Swift Syntax Compatibility Check
+    runs-on: macos-latest
+    steps:
+      - name: Git Checkout
+        uses: actions/checkout@v5
+
+      - name: Run Swift Syntax Compatibility Check
+        uses: davdroman/swift-macro-compatibility-check@from-version
+        with:
+          run-tests: false
+          from-version: "600.0.0"
+          major-versions-only: true
