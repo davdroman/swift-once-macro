@@ -22,7 +22,7 @@ let package = Package(
 			name: "OnceTests",
 			dependencies: [
 				"Once",
-			]
+			],
 		),
 
 		.macro(
@@ -30,16 +30,16 @@ let package = Package(
 			dependencies: [
 				.product(name: "SwiftCompilerPlugin", package: "swift-syntax"),
 				.product(name: "SwiftSyntaxMacros", package: "swift-syntax"),
-			]
+			],
 		),
 		.testTarget(
 			name: "OnceMacroTests",
 			dependencies: [
 				"OnceMacro",
 				.product(name: "MacroTesting", package: "swift-macro-testing"),
-			]
+			],
 		),
-	]
+	],
 )
 
 package.dependencies += [

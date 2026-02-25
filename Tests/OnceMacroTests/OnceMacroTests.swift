@@ -9,8 +9,8 @@ import Testing
 	.macros(
 		["once": OnceMacro.self],
 		indentationWidth: .tab,
-		record: .missing
-	)
+		record: .missing,
+	),
 )
 struct OnceMacroTests {}
 
