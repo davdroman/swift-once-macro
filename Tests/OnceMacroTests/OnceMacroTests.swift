@@ -1,5 +1,7 @@
 #if canImport(OnceMacro)
 import MacroTesting
+import SnapshotTesting
+import SwiftSyntax
 import Testing
 @testable import OnceMacro
 
@@ -7,8 +9,8 @@ import Testing
 	.macros(
 		["once": OnceMacro.self],
 		indentationWidth: .tab,
-		record: .missing
-	)
+		record: .missing,
+	),
 )
 struct OnceMacroTests {}
 

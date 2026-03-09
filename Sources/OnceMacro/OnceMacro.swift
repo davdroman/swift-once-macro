@@ -1,10 +1,11 @@
 import SwiftSyntax
+import SwiftSyntaxBuilder
 import SwiftSyntaxMacros
 
 struct OnceMacro: ExpressionMacro {
 	static func expansion(
 		of node: some FreestandingMacroExpansionSyntax,
-		in context: some MacroExpansionContext
+		in context: some MacroExpansionContext,
 	) throws -> ExprSyntax {
 		guard let block = node.arguments.first?.expression.as(ClosureExprSyntax.self) ?? node.trailingClosure else {
 			throw MacroError.missingArgument("block")
