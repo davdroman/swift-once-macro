@@ -1,9 +1,9 @@
 #if canImport(OnceMacro)
 import MacroTesting
+@testable import OnceMacro
 import SnapshotTesting
 import SwiftSyntax
 import Testing
-@testable import OnceMacro
 
 @Suite(
 	.macros(
@@ -18,7 +18,7 @@ struct OnceMacroTests {}
 
 extension OnceMacroTests {
 	@Test
-	func syncNonThrowing() {
+	func `sync macro expands to lock backed helper`() {
 		assertMacro {
 			"""
 			#once {
@@ -65,7 +65,7 @@ extension OnceMacroTests {
 	}
 
 	@Test
-	func syncThrowing() {
+	func `sync throwing macro preserves try`() {
 		assertMacro {
 			"""
 			try #once {
@@ -150,7 +150,7 @@ extension OnceMacroTests {
 	}
 
 	@Test
-	func syncComplexNonThrowing() {
+	func `sync macro preserves complex body`() {
 		assertMacro {
 			"""
 			#once {
@@ -228,7 +228,7 @@ extension OnceMacroTests {
 
 extension OnceMacroTests {
 	@Test
-	func asyncNonThrowing() {
+	func `async macro expands to actor backed helper`() {
 		assertMacro {
 			"""
 			await #once { () async in
@@ -269,7 +269,7 @@ extension OnceMacroTests {
 	}
 
 	@Test
-	func asyncThrowing() {
+	func `async throwing macro preserves try await`() {
 		assertMacro {
 			"""
 			try await #once {
@@ -312,7 +312,7 @@ extension OnceMacroTests {
 	}
 
 	@Test
-	func asyncComplexNonThrowing() {
+	func `async macro preserves complex body`() {
 		assertMacro {
 			"""
 			await #once {

@@ -8,7 +8,7 @@ struct OnceTests {}
 
 extension OnceTests {
 	@Test
-	func sync() async {
+	func `sync code runs once`() async {
 		func doSomethingOnce(_ confirmation: Confirmation) {
 			#once {
 				confirmation()
@@ -27,7 +27,7 @@ extension OnceTests {
 	}
 
 	@Test
-	func syncConcurrent() async {
+	func `sync code runs once when called concurrently`() async {
 		func doSomethingOnce(_ confirmation: Confirmation) {
 			#once {
 				confirmation()
@@ -56,7 +56,7 @@ extension OnceTests {
 	}
 
 	@Test
-	func syncReentrancy() async {
+	func `sync code skips reentrant calls`() async {
 		func doSomethingOnce(_ confirmation: Confirmation) {
 			func reentrant() {
 				#once {
@@ -80,7 +80,7 @@ extension OnceTests {
 	}
 
 	@Test
-	func syncConcurrentReentrancy() async {
+	func `sync code skips concurrent reentrant calls`() async {
 		func doSomethingOnce(_ confirmation: Confirmation) {
 			func reentrant() {
 				#once {
@@ -114,7 +114,7 @@ extension OnceTests {
 	}
 
 	@Test
-	func syncThrowing() async throws {
+	func `sync throwing code runs once`() async throws {
 		func throwingFunction() throws {}
 
 		func doSomethingOnce(_ confirmation: Confirmation) throws {
@@ -136,7 +136,7 @@ extension OnceTests {
 	}
 
 	@Test
-	func syncConcurrentThrowing() async throws {
+	func `sync throwing code runs once when called concurrently`() async throws {
 		func throwingFunction() throws {}
 
 		func doSomethingOnce(_ confirmation: Confirmation) throws {
@@ -170,7 +170,7 @@ extension OnceTests {
 	}
 
 	@Test
-	func syncMultiple() async throws {
+	func `sync independent call sites run once each`() async throws {
 		func throwingFunction() throws {}
 
 		func doSomethingOnceThrowing(_ confirmation: Confirmation) throws {
@@ -198,7 +198,7 @@ extension OnceTests {
 	}
 
 	@Test
-	func syncConcurrentMultiple() async throws {
+	func `sync independent call sites run once each when called concurrently`() async throws {
 		func throwingFunction() throws {}
 
 		func doSomethingOnceThrowing(_ confirmation: Confirmation) throws {
@@ -244,7 +244,7 @@ extension OnceTests {
 	}
 
 	@Test
-	func syncMultipleThrowing() async throws {
+	func `sync throwing call sites run once each`() async throws {
 		func throwingFunctionA() throws {}
 		func throwingFunctionB() throws {}
 
@@ -274,7 +274,7 @@ extension OnceTests {
 	}
 
 	@Test
-	func syncConcurrentMultipleThrowing() async throws {
+	func `sync throwing call sites run once each when called concurrently`() async throws {
 		func throwingFunctionA() throws {}
 		func throwingFunctionB() throws {}
 
@@ -326,7 +326,7 @@ extension OnceTests {
 
 extension OnceTests {
 	@Test
-	func async() async {
+	func `async code runs once`() async {
 		func doSomethingOnce(_ confirmation: Confirmation) async {
 			await #once {
 				await Task.yield() // force async context
@@ -346,7 +346,7 @@ extension OnceTests {
 	}
 
 	@Test
-	func asyncConcurrent() async {
+	func `async code runs once when called concurrently`() async {
 		func doSomethingOnce(_ confirmation: Confirmation) async {
 			await #once {
 				await Task.yield() // force async context
@@ -376,7 +376,7 @@ extension OnceTests {
 	}
 
 	@Test
-	func asyncReentrancy() async {
+	func `async code skips reentrant calls`() async {
 		func doSomethingOnce(_ confirmation: Confirmation) async {
 			func reentrant() async {
 				await #once {
@@ -400,7 +400,7 @@ extension OnceTests {
 	}
 
 	@Test
-	func asyncConcurrentReentrancy() async {
+	func `async code skips concurrent reentrant calls`() async {
 		func doSomethingOnce(_ confirmation: Confirmation) async {
 			func reentrant() async {
 				await #once {
@@ -434,7 +434,7 @@ extension OnceTests {
 	}
 
 	@Test
-	func asyncThrowing() async throws {
+	func `async throwing code runs once`() async throws {
 		func throwingFunction() async throws {}
 
 		func doSomethingOnce(_ confirmation: Confirmation) async throws {
@@ -456,7 +456,7 @@ extension OnceTests {
 	}
 
 	@Test
-	func asyncConcurrentThrowing() async throws {
+	func `async throwing code runs once when called concurrently`() async throws {
 		func throwingFunction() async throws {}
 
 		func doSomethingOnce(_ confirmation: Confirmation) async throws {
@@ -490,7 +490,7 @@ extension OnceTests {
 	}
 
 	@Test
-	func asyncMultiple() async throws {
+	func `async independent call sites run once each`() async throws {
 		func throwingFunction() async throws {}
 
 		func doSomethingOnceThrowing(_ confirmation: Confirmation) async throws {
@@ -519,7 +519,7 @@ extension OnceTests {
 	}
 
 	@Test
-	func asyncConcurrentMultiple() async throws {
+	func `async independent call sites run once each when called concurrently`() async throws {
 		func throwingFunction() async throws {}
 
 		func doSomethingOnceThrowing(_ confirmation: Confirmation) async throws {
