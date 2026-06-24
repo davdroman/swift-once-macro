@@ -134,7 +134,7 @@ jobs:
 
   check-swift-syntax-compatibility:
     name: Swift Syntax Compatibility Check
-    runs-on: macos-latest
+    runs-on: macos-26
     steps:
       - name: Git Checkout
         uses: actions/checkout@v5
@@ -144,3 +144,4 @@ jobs:
         with:
           run-tests: false
           major-versions-only: true
+          disable-prebuilts: true
