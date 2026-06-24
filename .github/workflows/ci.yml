@@ -135,11 +135,9 @@ jobs:
       - name: Git Checkout
         uses: actions/checkout@v5
 
-      - name: Disable SwiftSyntax Prebuilts
-        uses: davdroman/disable-swift-syntax-prebuilts@v1
-
       - name: Check Swift Syntax Compatibility
-        uses: davdroman/swift-syntax-compatibility-check@v1
+        uses: davdroman/swift-syntax-compatibility-check@disable-prebuilts-input
         with:
           run-tests: false
           major-versions-only: true
+          disable-prebuilts: true
