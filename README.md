@@ -3,6 +3,7 @@
 [![CI](https://github.com/davdroman/swift-once-macro/actions/workflows/ci.yml/badge.svg)](https://github.com/davdroman/swift-once-macro/actions/workflows/ci.yml)
 [![](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2Fdavdroman%2Fswift-once-macro%2Fbadge%3Ftype%3Dswift-versions)](https://swiftpackageindex.com/davdroman/swift-once-macro)
 [![](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2Fdavdroman%2Fswift-once-macro%2Fbadge%3Ftype%3Dplatforms)](https://swiftpackageindex.com/davdroman/swift-once-macro)
+[![](https://img.shields.io/badge/Documentation-gray?logo=swift&logoColor=white)](https://swiftpackageindex.com/davdroman/swift-once-macro/main/documentation/once)
 
 A Swift macro that makes it dead simple to execute something *just once*.
 
