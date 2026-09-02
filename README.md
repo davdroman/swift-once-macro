@@ -53,3 +53,12 @@ import Once
 ```
 
 That's it.
+
+## Development
+
+Install [Mise](https://mise.jdx.dev/), then install the project tools and Git hooks:
+
+```sh
+mise install
+mise exec -- hk install --mise
+```
